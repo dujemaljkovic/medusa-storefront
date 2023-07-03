@@ -38,18 +38,19 @@ const ProductGrid: React.FC = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
       {products.map((product) => (
+        <Link to={`/products/${product.id}`}>
         <div key={product.id} className="p-4 border rounded">
-          <img
-            src={product.thumbnail}
-            alt={product.title}
-            className="w-full h-48 object-cover mb-4"
-          />
+          
+            <img
+              src={product.thumbnail}
+              alt={product.title}
+              className="w-full h-48 object-cover mb-4"
+            />
+          
           <h2 className="text-xl font-semibold">{product.title}</h2>
           <p>{product.description}</p>
-          <Link to={`/products/${product.id}`} className="text-blue-500">
-            View Details
-          </Link>
         </div>
+        </Link>
       ))}
     </div>
   );

@@ -35,7 +35,7 @@ const ProductDetails: React.FC = () => {
 
   const fetchProductDetails = async () => {
     try {
-      const response: AxiosResponse<any> = await axios.get<Product[]>(
+      const response: AxiosResponse<{ product: Product }> = await axios.get(
         `http://localhost:9000/store/products/${id}`
       );
       console.log("API response:", response.data);
@@ -51,30 +51,44 @@ const ProductDetails: React.FC = () => {
     return <div>Loading...</div>;
   }
 
+  const getFormattedPrice = (amount: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount / 100);
+  };
+
   const selectVariant = (variantId: string) => {
     // Implement variant selection logic here
   };
 
   return (
-    <div>
-      <img
-        src={product.thumbnail}
-        alt={product.title}
-        className="w-full mb-4"
-      />
-      <h2 className="text-xl font-semibold">{product.title}</h2>
-      <p>{product.description}</p>
-      <h3>Variants:</h3>
-      <ul>
-        {product.variants.map((variant) => (
-          <li key={variant.id}>
-            {variant.title} - ${variant.prices[0].amount}{" "}
-            {/* Display the price */}
-            <button onClick={() => selectVariant(variant.id)}>Select</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <main className="mt-5">
+      <div className="container mx-auto">
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-1/2">
+            <img
+              className="w-full"
+              alt={product.title}
+              src={product.thumbnail}
+            />
+          </div>
+          <div className="w-full md:w-1/2 flex flex-col justify-center">
+            <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
+            <p className="mb-4 text-green-500 font-bold">
+              {getFormattedPrice(product.variants?.[0]?.prices?.[1]?.amount)}
+            </p>
+            <p className="mb-5">{product.description}</p>
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded-lg"
+              onClick={() => console.log("Add to cart")}
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
