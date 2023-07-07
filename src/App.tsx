@@ -13,7 +13,7 @@ const App = () => {
   return (
     <MedusaProvider
       queryClientProviderProps={{ client: queryClient }}
-      baseUrl="http://localhost:9000/store/products"
+      baseUrl="http://localhost:9000"
     >
       <Router>
       <NavHeader />

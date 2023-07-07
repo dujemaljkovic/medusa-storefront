@@ -1,57 +1,55 @@
-import React, { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useProducts, useCollections } from "medusa-react";
 
-interface Product {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  thumbnail: string;
-}
+const ProductGrid = () => {
+  const { products, isLoading: productsLoading } = useProducts({
+    expand: "collection",
+  });
+  const { collections } = useCollections();
+  const [selectedCollection, setSelectedCollection] = useState<string>("");
+  console.log(products);
 
-const ProductGrid: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const handleCollectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCollection(event.target.value);
+  };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response: AxiosResponse<any> = await axios.get<Product[]>(
-          "http://localhost:9000/store/products"
-        );
-        setProducts(response.data.products);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching product data:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const filteredProducts = selectedCollection
+    ? products?.filter((product) => product.collection?.id === selectedCollection)
+    : products;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-      {products.map((product) => (
-        <Link to={`/products/${product.id}`}>
-        <div key={product.id} className="p-4 border rounded">
-          
-            <img
-              src={product.thumbnail}
-              alt={product.title}
-              className="w-full h-48 object-cover mb-4"
-            />
-          
-          <h2 className="text-xl font-semibold">{product.title}</h2>
-          <p>{product.description}</p>
-        </div>
-        </Link>
-      ))}
+    <div>
+      <select value={selectedCollection} onChange={handleCollectionChange}>
+        <option value="">All Collections</option>
+        {collections?.map((collection) => (
+          <option key={collection.id} value={collection.id}>
+            {collection.title}
+          </option>
+        ))}
+      </select>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {productsLoading ? (
+          <div>Loading...</div>
+        ) : (
+          filteredProducts?.map((product) => (
+            <Link to={`/products/${product.id}`} key={product.id}>
+              <div className="p-4 border rounded">
+                <img
+                  src={product.thumbnail || ""}
+                  alt={product.title}
+                  className="w-full h-48 object-cover mb-4"
+                />
+                <h2 className="text-xl font-semibold">{product.title}</h2>
+                <p>{product.description}</p>
+                <p className="text-lg font-bold">
+                  $ {product.variants?.[0]?.prices?.[1]?.amount}
+                </p>
+              </div>
+            </Link>
+          ))
+        )}
+      </div>
     </div>
   );
 };

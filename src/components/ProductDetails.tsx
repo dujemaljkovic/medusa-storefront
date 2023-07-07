@@ -38,10 +38,8 @@ const ProductDetails: React.FC = () => {
       const response: AxiosResponse<{ product: Product }> = await axios.get(
         `http://localhost:9000/store/products/${id}`
       );
-      console.log("API response:", response.data);
+
       setProduct(response.data.product);
-      console.log("API response:", response.data);
-      console.log("Product variants:", response.data.product.variants);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
