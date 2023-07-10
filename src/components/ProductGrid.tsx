@@ -8,7 +8,6 @@ const ProductGrid = () => {
   });
   const { collections } = useCollections();
   const [selectedCollection, setSelectedCollection] = useState<string>("");
-  console.log(products);
 
   const handleCollectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCollection(event.target.value);
