@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProduct } from "medusa-react";
 import { useParams } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
@@ -8,14 +8,19 @@ import classNames from "classnames";
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { product, isLoading } = useProduct(id || "");
-  const [selectedVariantId, setSelectedVariantId] = useState<string | null>(
-    null
-  );
-  const [selectedSize, setSelectedSize] = useState(product?.variants[0]?.id);
+  const [selectedVariantId, setSelectedVariantId] = useState(product?.variants[0]?.id);
+  const [selectedSize, setSelectedSize] = useState(product?.variants[1]?.id);
 
   const selectVariant = (variantId: string) => {
     setSelectedVariantId(variantId);
   };
+
+  useEffect(() => {
+    if (product && product.variants && product.variants.length > 0) {
+      setSelectedVariantId(product?.variants[0]?.id);
+      setSelectedSize(product.variants[0]?.id);
+    }
+  }, [product]);
 
   if (isLoading || !product || !product.variants) {
     return <div>Loading...</div>;

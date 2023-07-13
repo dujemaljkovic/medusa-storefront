@@ -1,50 +1,31 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
 =======
 # medusa-storefront
 >>>>>>> 5c22f778c90fbbf66a4b20ed36fecdc7a466246f
+This project is a simple storefront that displays products in a grid (landing page) and allows customers to visit a details page for each product. It uses Medusa as the backend and Create React App as the frontend framework.
+
+#Time spent
+I spent about 12 hours working on this project.
+
+#The implementation that was most challenging
+The most challenging part of the project was implementing the product details page and the product variants logic. I had to use the Medusa React hooks library to fetch the product data and handle the variant selection.
+
+#The implementation I am most proud of
+The implementation I am most proud of is the responsive design and the Tailwind CSS styling. I think the storefront looks modern and sleek on different screen sizes and devices.
+
+#How I structured the project and any considerations I had
+I structured the project using a modular component-based approach. I created reusable components for the product card, the product details, the filter menu, and the header. I used Create React App’s routing to create pages for each product based on its slug. I used Tailwind CSS for styling and TypeScript for type checking. I also used ESLint and Prettier for code formatting and linting.
+
+#Installation
+To run this project locally, you need to have Node.js and npm installed. You also need to have a Medusa server running with some sample products. Follow these steps to set up the project:
+
+#Clone this repository: git clone https://github.com/dujemaljkovic/medusa-storefront.git
+Install dependencies: npm install
+Create a .env.local file with your Medusa store API URL: REACT_APP_MEDUSA_API_URL=your-medusa-api-url
+Run the development server: npm start
+Open http://localhost:3000 in your browser
+Usage
+You can browse the products on the landing page and filter them by price. You can click on any product to see its details and choose among its variants. You can also view the Figma design here: https://www.figma.com/file/GGWEglZ400r9Ut6e15ZDAJ/Medusa—Frontend-challenge
+
+#Contributors
+This project was created by Duje Maljkovic as part of the Agilo frontend pre-internship case. You can contact me at duje.maljkovic@gmail.com if you have any questions or feedback.
